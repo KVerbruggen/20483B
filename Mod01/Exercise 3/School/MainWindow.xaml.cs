@@ -107,17 +107,25 @@ namespace School
                         this.teacher.Students.Add(newStudent);
 
                         // Add the student to the list displayed on the form
-                        this.studentsInfo.Add(newStudent);
+                        this.studentsInfo.Add(newStudent); // Student's note: This line is redundant, as studentsInfo is bound to teacher.Students.GetList(). Entity Framework's multiplicity enforcement prevents the student from being added multiple times.
 
                         // Enable saving (changes are not made permanent until they are written back to the database)
                         saveChanges.IsEnabled = true;
                     }
                     break;
 
-                    // TODO: Exercise 3: Task 1a: If the user pressed Delete, remove the currently selected student
-                    // TODO: Exercise 3: Task 2a: Prompt the user to confirm that the student should be removed
-                    // TODO: Exercise 3: Task 3a: If the user clicked Yes, remove the student from the database
-                    // TODO: Exercise 3: Task 3b: Enable saving (changes are not made permanent until they are written back to the database)
+                case Key.Delete:
+                    Student studentToDelete = this.studentsList.SelectedItem as Student;
+                    if (MessageBox.Show("Remove " + studentToDelete.FirstName + " " + studentToDelete.LastName, "Confirm", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    {
+                        schoolContext.Students.DeleteObject(studentToDelete);
+                        saveChanges.IsEnabled = true;
+                    }
+                    break;
+                // TODO: Exercise 3: Task 1a: If the user pressed Delete, remove the currently selected student
+                // TODO: Exercise 3: Task 2a: Prompt the user to confirm that the student should be removed
+                // TODO: Exercise 3: Task 3a: If the user clicked Yes, remove the student from the database
+                // TODO: Exercise 3: Task 3b: Enable saving (changes are not made permanent until they are written back to the database)
             }
         }
 
