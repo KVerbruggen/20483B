@@ -75,8 +75,7 @@ namespace School
                     {
                         student.FirstName = sf.firstName.Text;
                         student.LastName = sf.lastName.Text;
-                        DateTime dateOfBirth;
-                        if (DateTime.TryParse(sf.dateOfBirth.Text, out dateOfBirth))
+                        if (DateTime.TryParse(sf.dateOfBirth.Text, out DateTime dateOfBirth))
                         {
                             student.DateOfBirth = dateOfBirth;
                         }
