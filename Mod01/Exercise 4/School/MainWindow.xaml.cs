@@ -157,12 +157,20 @@ namespace School
         public object Convert(object value, Type targetType, object parameter,
                               System.Globalization.CultureInfo culture)
         {
+            if (value != null)
+            {
+                DateTime dateTimeValue = (DateTime)value;
+                TimeSpan age = DateTime.Now.Subtract(dateTimeValue);
+                int years = ((int)(age.Days / 365.25));
+                return years.ToString();
+            }
+
             // Convert the date of birth provided in the value parameter and convert to the age of the student in years
-            // TODO: Exercise 4: Task 2a: Check that the value provided is not null. If it is, return an empty string
-            // TODO: Exercise 4: Task 2b: Convert the value provided into a DateTime value
-            // TODO: Exercise 4: Task 2c: Work out the difference between the current date and the value provided
-            // TODO: Exercise 4: Task 2d: Convert this result into a number of years
-            // TODO: Exercise 4: Task 2e: Convert the number of years into a string and return it
+            // Exercise 4: Task 2a: Check that the value provided is not null. If it is, return an empty string
+            // Exercise 4: Task 2b: Convert the value provided into a DateTime value
+            // Exercise 4: Task 2c: Work out the difference between the current date and the value provided
+            // Exercise 4: Task 2d: Convert this result into a number of years
+            // Exercise 4: Task 2e: Convert the number of years into a string and return it
 
             return "";
         }
