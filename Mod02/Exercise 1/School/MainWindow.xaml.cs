@@ -160,7 +160,6 @@ namespace School
                 case Key.Delete:
 
                     // Exercise 1: Task 4b: Refactor as the removeStudent method
-
                     removeStudent();
                     break;
             }
