@@ -7,7 +7,9 @@ using System.Windows.Data;
 using System.Windows.Input;
 using School.Data;
 
-// TODO: Exercise 3: Task 2a: Bring the System.Data and System.Data.Objects namespaces into scope
+// Exercise 3: Task 2a: Bring the System.Data and System.Data.Objects namespaces into scope
+using System.Data;
+using System.Data.Objects;
 
 namespace School
 {
@@ -159,10 +161,33 @@ namespace School
         // Save changes back to the database and make them permanent
         private void saveChanges_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: Exercise 3: Task 2b: Save the changes by calling the SaveChanges method of the schoolContext object
+            // Exercise 3: Task 2b: Save the changes by calling the SaveChanges method of the schoolContext object
             // TODO: Exercise 3: Task 3a: If an OptimisticConcurrencyException occurs then another user has changed the same students earlier, then overwrite their changes with the new data (see the lab instructions for details)
             // TODO: Exercise 3: Task 3b: If an UpdateException occurs then report the error to the user and rollback (see the lab instructions for details)
             // TODO: Exercise 3: Task 3c: If some other sort of error has occurs, report the error to the user and retain the data so the user can try again - the error may be transitory (see the lab instructions for details)
+            try
+            {
+                schoolContext.SaveChanges();
+                saveChanges.IsEnabled = false;
+            }
+            catch (OptimisticConcurrencyException)
+            {
+                // If the user has changed the same students earlier, then overwrite their changes with the new data
+                this.schoolContext.Refresh(RefreshMode.StoreWins, schoolContext.Students);
+                this.schoolContext.SaveChanges();
+            }
+            catch (UpdateException uEx)
+            {
+                // If some sort of database exception has occurred, then display the reason for the exception and rollback
+                MessageBox.Show(uEx.InnerException.Message, "Error saving changes");
+                this.schoolContext.Refresh(RefreshMode.StoreWins, schoolContext.Students);
+            }
+            catch (Exception ex)
+            {
+                // If some other exception occurs, report it to the user
+                MessageBox.Show(ex.Message, "Error saving changes");
+                this.schoolContext.Refresh(RefreshMode.ClientWins, schoolContext.Students);
+            }
         }
     }
 
