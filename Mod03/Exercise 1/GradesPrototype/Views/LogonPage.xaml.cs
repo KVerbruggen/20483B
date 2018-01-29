@@ -28,14 +28,25 @@ namespace GradesPrototype.Views
         }
 
         #region Event Members
-        // TODO: Exercise 1: Task 2a: Define the LogonSuccess event handler
+        // Exercise 1: Task 2a: Define the LogonSuccess event handler
+        public event EventHandler LogonSuccess;
 
         #endregion
 
         #region Logon Validation
 
-        // TODO: Exercise 1: Task 2b: Implement the Logon_Click event handler for the Logon button
+        // Exercise 1: Task 2b: Implement the Logon_Click event handler for the Logon button
         // Simulate logging on (no validation or authentication performed yet)
+        private void Logon_Click(object sender, RoutedEventArgs e)
+        {
+            SessionContext.UserName = username.Text;
+            SessionContext.UserRole = userrole.IsChecked.Value ? Role.Teacher : Role.Student;
+            if (SessionContext.UserRole == Role.Student)
+            {
+                SessionContext.CurrentStudent = "Eric Gruber";
+            }
+            LogonSuccess(this, e);
+        }
 
         #endregion
     }
