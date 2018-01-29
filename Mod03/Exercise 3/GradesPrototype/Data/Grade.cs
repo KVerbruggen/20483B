@@ -10,6 +10,12 @@ namespace GradesPrototype.Data
     public enum Role { Teacher, Student };
 
     // WPF Databinding requires properties
+    public interface IPerson
+    {
+        string UserName { get; set; }
+        string Password { get; set; }
+    }
+
     public struct Grade
     {
         public int StudentID { get; set; }
@@ -19,7 +25,7 @@ namespace GradesPrototype.Data
         public string Comments { get; set; }
     }
 
-    public struct Student
+    public struct Student : IPerson
     {
         public int StudentID { get; set; }
         public string UserName { get; set; }
@@ -29,7 +35,7 @@ namespace GradesPrototype.Data
         public string LastName { get; set; }
     }
 
-    public struct Teacher
+    public struct Teacher : IPerson
     {
         public int TeacherID { get; set; }
         public string UserName { get; set; }

@@ -30,11 +30,19 @@ namespace GradesPrototype.Views
 
         #region Display Logic
 
-        // TODO: Exercise 3: Task 3a: Display students for the current teacher (held in SessionContext.CurrentTeacher )
+        // Exercise 3: Task 3a: Display students for the current teacher (held in SessionContext.CurrentTeacher )
         public void Refresh()
         {
-
+            ArrayList students = new ArrayList();
+            students.AddRange((
+                from Student student in DataSource.Students
+                where student.TeacherID == SessionContext.CurrentTeacher.TeacherID
+                select student
+            ).ToList());
+            list.ItemsSource = students;
+            txtClass.Text = SessionContext.CurrentTeacher.Class;
         }
+
         #endregion
 
         #region Event Members
@@ -44,10 +52,10 @@ namespace GradesPrototype.Views
 
         #region Event Handlers
 
-        // TODO: Exercise 3: Task 3b: If the user clicks on a student, display the details for that student
+        // Exercise 3: Task 3b: If the user clicks on a student, display the details for that student
         private void Student_Click(object sender, RoutedEventArgs e)
         {
-
+            StudentSelected(this, new StudentEventArgs((Student)((Button)sender).DataContext));
         }
         #endregion
     }

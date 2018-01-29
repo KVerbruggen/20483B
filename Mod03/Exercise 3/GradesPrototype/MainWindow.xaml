@@ -29,8 +29,8 @@
             <Grid Grid.Row="1">
                 <!-- CONTENT -->
                 
-                <!-- TODO: Exercise 3: Task 2b: Connect the LogonFailed event of the logonPage view to the Logon_Failed method in MainWindow.xaml.cs -->
-                <y:LogonPage x:Name="logonPage" LogonSuccess="Logon_Success" Visibility="Collapsed" />
+                <!-- Exercise 3: Task 2b: Connect the LogonFailed event of the logonPage view to the Logon_Failed method in MainWindow.xaml.cs -->
+                <y:LogonPage x:Name="logonPage" LogonSuccess="Logon_Success" Visibility="Collapsed" LogonFailed="Logon_Failed" />
                
                 <y:StudentsPage x:Name="studentsPage" StudentSelected="studentsPage_StudentSelected" Visibility="Collapsed" />
                 <y:StudentProfile x:Name="studentProfile" Back="studentPage_Back" Visibility="Collapsed" />
