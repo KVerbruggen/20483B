@@ -53,9 +53,24 @@ namespace GradesPrototype.Views
         
         public void Refresh()
         {
-            // TODO: Exercise 3: Task 4a: Display the details for the current student (held in SessionContext.CurrentStudent) 
+            // Exercise 3: Task 4a: Hide or show the back button based on the role of the logged in user.
+            if (SessionContext.UserRole == Role.Teacher)
+            {
+                btnBack.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                btnBack.Visibility = Visibility.Collapsed;
+            }
 
-            // TODO: Exercise 3: Task 4d: Create a list of the grades for the student and display this list on the page
+            // Exercise 3: Task 4a: Display the details for the current student (held in SessionContext.CurrentStudent)
+            studentName.DataContext = SessionContext.CurrentStudent;
+
+            // Exercise 3: Task 4d: Create a list of the grades for the student and display this list on the page
+            studentGrades.ItemsSource =
+                from Grade grade in DataSource.Grades
+                where grade.StudentID == SessionContext.CurrentStudent.StudentID
+                select grade;
         }
     }
 }
