@@ -14,16 +14,71 @@ namespace GradesPrototype.Data
 
     public class Grade
     {
+        // assessmentDate actually saved as a date.
+        private DateTime assessmentDate;
+
+        private string subject;
+        private string assessment;
+
         public int StudentID { get; set; }
 
-        // TODO: Exercise 2: Task 2a: Add validation to the AssessmentDate property
-        public string AssessmentDate { get; set; }
+        // Exercise 2: Task 2a: Add validation to the AssessmentDate property
+        public string AssessmentDate
+        {
+            get {
+                return assessmentDate.ToString("d");
+            }
+            set {
+                // if the input can be parsed into a date and this date is in the past, save the date as a DateTime. Else, throw an Exception.
+                if (DateTime.TryParse(value, out DateTime newDate))
+                {
+                    if (newDate > DateTime.Now)
+                    {
+                        throw new ArgumentOutOfRangeException();
+                    }
+                    else
+                    {
+                        assessmentDate = newDate.Date;
+                    }
+                }
+                else
+                {
+                    throw new ArgumentException();
+                }
+            }
+        }
         
-        // TODO: Exercise 2: Task 2b: Add validation to the SubjectName property
-        public string SubjectName { get; set; }
+        // Exercise 2: Task 2b: Add validation to the SubjectName property
+        public string SubjectName
+        {
+            get { return subject; }
+            set {
+                if (DataSource.Subjects.Contains(value))
+                {
+                    subject = value;
+                }
+                else
+                {
+                    throw new ArgumentException();
+                }
+            }
+        }
 
-        // TODO: Exercise 2: Task 2c: Add validation to the Assessment property
-        public string Assessment { get; set; }
+        // Exercise 2: Task 2c: Add validation to the Assessment property
+        public string Assessment {
+            get { return assessment; }
+            set {
+                Match matchGrade = Regex.Match(value, @"[A-E][+-]?$");
+                if (matchGrade.Success)
+                {
+                    assessment = matchGrade.Value;
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+            }
+        }
 
         public string Comments { get; set; }
                 
