@@ -50,16 +50,55 @@ namespace GradesPrototype.Views
             }
         }
 
-        // TODO: Exercise 4: Task 4a: Enable a teacher to remove a student from a class
+        // Exercise 4: Task 4a: Enable a teacher to remove a student from a class
         private void Remove_Click(object sender, RoutedEventArgs e)
         {
+            if (SessionContext.UserRole != Role.Teacher)
+            {
+                return;
+            }
+            try
+            {
+                MessageBoxResult result = MessageBox.Show("Are you sure you want to remove this student from your class?", "Remove student", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
+                if (result == MessageBoxResult.Yes)
+                {
+                    SessionContext.CurrentTeacher.RemoveFromClass(SessionContext.CurrentStudent);
+                    Back_Click(sender, e); // Added after testing -- After the student is deleted, close the profile. Since the student is deleted, there's no need to show his data anymore, and it's confusing if the app shows data of a student that doesn't exist in the datasource anymore. This also solves the problem of being able to click the 'Delete'- and 'Add Grade'-buttons for deleted students.
+                }
+            }
+            catch(ArgumentException exception)
+            {
+                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
         }
 
-        // TODO: Exercise 4: Task 5a: Enable a teacher to add a grade to a student
+        // Exercise 4: Task 5a: Enable a teacher to add a grade to a student
         private void AddGrade_Click(object sender, RoutedEventArgs e)
         {
-
+            if (SessionContext.UserRole != Role.Teacher)
+            {
+                return;
+            }
+            try
+            {
+                GradeDialog gradeDialog = new GradeDialog();
+                if (gradeDialog.ShowDialog().Value)
+                {
+                    Grade grade = new Grade();
+                    grade.AssessmentDate = gradeDialog.assessmentDate.SelectedDate.ToString();
+                    grade.SubjectName = gradeDialog.subject.Text;
+                    grade.Assessment = gradeDialog.assessmentGrade.Text;
+                    grade.Comments = gradeDialog.comments.Text;
+                    DataSource.Grades.Add(grade);
+                    SessionContext.CurrentTeacher.AddGrade(grade, SessionContext.CurrentStudent);
+                    this.Refresh();
+                }
+            }
+            catch (ArgumentException exception)
+            {
+                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
         #endregion
 

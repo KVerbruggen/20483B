@@ -225,8 +225,50 @@ namespace GradesPrototype.Data
             Class = String.Empty;
         }
 
-        // TODO: Exercise 4: Task 2a: Enroll a student in the class for this teacher
+        // Exercise 4: Task 2a: Enroll a student in the class for this teacher
+        public void EnrollInClass(Student student)
+        {
+            // The default value for Student.TeacherID is 0, and there are no teachers with ID 0, so students with TeacherID 0 are not enrolled in a class yet.
+            // If student is not enrolled in a class, enroll in the class of the selected teacher. Else, throw an ArgumentException.
+            if (student.TeacherID == 0)
+            {
+                student.TeacherID = this.TeacherID;
+            }
+            else
+            {
+                throw new ArgumentException("Can't enroll student. Student is enrolled in another class.");
+            }
+        }
 
-        // TODO: Exercise 4: Task 2b: Remove a student from the class for this teacher
+        // Exercise 4: Task 2b: Remove a student from the class for this teacher
+        public void RemoveFromClass(Student student)
+        {
+            // If the student is enrolled in this teacher's class, remove the student from the class by resetting his TeacherID to 0. Else, throw an ArgumentException.
+            if (student.TeacherID == this.TeacherID)
+            {
+                student.TeacherID = 0;
+            }
+            else
+            {
+                throw new ArgumentException("Can't remove student. Student is not enrolled in your class.");
+            }
+        }
+
+        public void AddGrade(Grade grade, Student student)
+        {
+            // Add a grade to a student.
+            if (grade.StudentID == 0)
+            {
+                grade.StudentID = student.StudentID;
+            }
+            else if (grade.StudentID == student.StudentID)
+            {
+                throw new ArgumentException("This grade already belongs to this student.");
+            }
+            else
+            {
+                throw new ArgumentException("This grade already belongs to a student.");
+            }
+        }
     }
 }
