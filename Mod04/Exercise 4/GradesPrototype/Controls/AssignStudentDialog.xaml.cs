@@ -29,9 +29,15 @@ namespace GradesPrototype.Controls
         // Exercise 4: Task 3b: Refresh the display of unassigned students
         private void Refresh()
         {
-            List<Student> unassignedStudents = DataSource.Students.FindAll(student => student.TeacherID == 0);
+            var unassignedStudents = from student in DataSource.Students
+                                     where student.TeacherID == 0
+                                     select student;
+            // Other option: Lamdba-expression
+            // List<Student> unassignedStudents = DataSource.Students.FindAll(student => student.TeacherID == 0);
             list.ItemsSource = unassignedStudents;
-            if (unassignedStudents.Count == 0)
+            // if a Lambda-expression is used, the next line needs to be replaced by:
+            // if (unassignedStudents.Count == 0)
+            if (unassignedStudents.Count() == 0)
             {
                 txtMessage.Visibility = Visibility.Visible;
                 list.Visibility = Visibility.Collapsed;
@@ -54,7 +60,11 @@ namespace GradesPrototype.Controls
             try
             {
                 int selectedStudentId = (int)((Button)sender).Tag;
-                Student selectedStudent = DataSource.Students.Find(student => student.StudentID == selectedStudentId);
+                Student selectedStudent = (from student in DataSource.Students
+                                           where student.StudentID == selectedStudentId
+                                           select student).FirstOrDefault();
+                // Other option: Lamdba-expression
+                // Student selectedStudent = DataSource.Students.Find(student => student.StudentID == selectedStudentId);
                 MessageBoxResult result = MessageBox.Show(String.Format("Are you sure you want to enroll {0} {1} in your class?", selectedStudent.FirstName, selectedStudent.LastName), "Enroll student", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
                 if (result == MessageBoxResult.Yes)
                 {
