@@ -62,9 +62,10 @@ namespace GradesPrototype.Controls
         // Exercise 4: Task 3a: Enroll a student in the teacher's class
         private void Student_Click(object sender, RoutedEventArgs e)
         {
+            Button clickedButton = sender as Button;
             try
             {
-                int selectedStudentId = (int)((Button)sender).Tag;
+                int selectedStudentId = (int)clickedButton.Tag;
                 Student selectedStudent = (from student in DataSource.Students
                                            where student.StudentID == selectedStudentId
                                            select student).FirstOrDefault();
