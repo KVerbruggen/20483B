@@ -32,10 +32,15 @@ namespace GradesPrototype.Controls
             var unassignedStudents = from student in DataSource.Students
                                      where student.TeacherID == 0
                                      select student;
-            // Other option: Lamdba-expression
-            // List<Student> unassignedStudents = DataSource.Students.FindAll(student => student.TeacherID == 0);
+
+            // Other option: Lambda-expression
+            // var unassignedStudents = DataSource.Students.Where(student => student.TeacherID == 0);
+            // Another option: .NET FindAll-method
+            // var List<Student> unassignedStudents = DataSource.Students.FindAll(student => student.TeacherID == 0);
+
             list.ItemsSource = unassignedStudents;
-            // if a Lambda-expression is used, the next line needs to be replaced by:
+
+            // if .NET's FindAll is used, the next line needs to be replaced by:
             // if (unassignedStudents.Count == 0)
             if (unassignedStudents.Count() == 0)
             {
@@ -63,8 +68,12 @@ namespace GradesPrototype.Controls
                 Student selectedStudent = (from student in DataSource.Students
                                            where student.StudentID == selectedStudentId
                                            select student).FirstOrDefault();
+
                 // Other option: Lamdba-expression
+                // Student selectedStudent = DataSource.Students.FirstOrDefault(student => student.StudentID == selectedStudentId);
+                // Another option: .NET Find-method
                 // Student selectedStudent = DataSource.Students.Find(student => student.StudentID == selectedStudentId);
+
                 MessageBoxResult result = MessageBox.Show(String.Format("Are you sure you want to enroll {0} {1} in your class?", selectedStudent.FirstName, selectedStudent.LastName), "Enroll student", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
                 if (result == MessageBoxResult.Yes)
                 {
