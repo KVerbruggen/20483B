@@ -121,7 +121,7 @@ namespace GradesPrototype.Data
     }
 
     // TODO: Exercise 3: Task 2a: Specify that the Student class implements the IComparable<Student> interface
-    public class Student
+    public class Student : IComparable<Student>
     {
         public int StudentID { get; set; }
         public string UserName { get; set; }
@@ -165,7 +165,14 @@ namespace GradesPrototype.Data
             TeacherID = 0;
         }
 
-        // TODO: Exercise 3: Task 2b: Compare Student objects based on their LastName and FirstName properties
+        // Exercise 3: Task 2b: Compare Student objects based on their LastName and FirstName properties
+        public int CompareTo(Student other)
+        {
+            // Using 'this' is not necessary in this case, but I prefer it for clarity. Since we're comparing 2 objects of the same type, it makes it more clear what object you're referring to when referencing properties.
+            string fullName = String.Format("{0} {1}", this.LastName, this.FirstName);
+            string fullName2 = String.Format("{0} {1}", other.LastName, other.FirstName);
+            return String.Compare(fullName, fullName2);
+        }
 
     }
 
