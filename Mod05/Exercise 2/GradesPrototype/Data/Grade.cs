@@ -15,14 +15,17 @@ namespace GradesPrototype.Data
     {
         public string UserName { get; set; }
 
-        // TODO: Exercise 2: Task 2a: Make _password a protected field rather than private
-        private string _password = Guid.NewGuid().ToString(); // Generate a random password by default
+        // Exercise 2: Task 2a: Make _password a protected field rather than private
+        protected string _password = Guid.NewGuid().ToString(); // Generate a random password by default
         public string Password
         {
             set
             {
-                // TODO: Exercise 2: Task 1b: Use the SetPassword method to set the password
-                _password = value;
+                // Exercise 2: Task 1b: Use the SetPassword method to set the password
+                if (!SetPassword(value))
+                {
+                    throw new ArgumentException();
+                }
             }
         }
 
@@ -31,8 +34,9 @@ namespace GradesPrototype.Data
             return (String.Compare(pass, _password) == 0);
         }
 
-        // TODO: Exercise 2: Task 1a: Define an abstract method for setting the password
+        // Exercise 2: Task 1a: Define an abstract method for setting the password
         // Teachers and Students will have different password complexity policies
+        public abstract bool SetPassword(string password);
     }
 
     public class Grade
@@ -201,8 +205,17 @@ namespace GradesPrototype.Data
             }   
         }
 
-        // TODO: Exercise 2: Task 2b: Implement SetPassword to set the password for the student
+        // Exercise 2: Task 2b: Implement SetPassword to set the password for the student
         // The password policy is very simple - the password must be at least 6 characters long, but there are no other restrictions
+        public override bool SetPassword(string password)
+        {
+            if (password.Length >= 6)
+            {
+                _password = password;
+                return true;
+            }
+            return false;
+        }
     }
 
     public class Teacher : User
@@ -265,7 +278,20 @@ namespace GradesPrototype.Data
             } 
         }
 
-        // TODO: Exercise 2: Task 2c: Implement SetPassword to set the password for the teacher
+        // Exercise 2: Task 2c: Implement SetPassword to set the password for the teacher
         // The password must be at least 8 characters long, and it must contain at least 2 numeric characters
+        public override bool SetPassword(string password)
+        {
+            if (password.Length >= 8)
+            {
+                Match numericMatch = Regex.Match(password, @".*[0-9]+.*[0-9]+.*");
+                if (numericMatch.Success)
+                {
+                    _password = password;
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }
