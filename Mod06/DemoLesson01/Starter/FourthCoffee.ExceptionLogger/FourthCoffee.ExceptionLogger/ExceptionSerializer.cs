@@ -25,8 +25,9 @@ namespace FourthCoffee.ExceptionLogger
 
             var stream = File.Create(path);
 
-            // TODO: 04: Create a SoapFormatter object and serialize the entry object.
-       
+            // 04: Create a SoapFormatter object and serialize the entry object.
+            var formatter = new SoapFormatter();
+            formatter.Serialize(stream, entry);
 
             stream.Close();
             stream.Dispose();
@@ -45,8 +46,9 @@ namespace FourthCoffee.ExceptionLogger
             var entry = default(ExceptionEntry);
             var stream = File.OpenRead(path);
 
-            // TODO: 05: Create a SoapFormatter object and deserialize the stream to the entry object.
-         
+            // 05: Create a SoapFormatter object and deserialize the stream to the entry object.
+            var formatter = new SoapFormatter();
+            entry = formatter.Deserialize(stream) as ExceptionEntry;
 
             stream.Close();
             stream.Dispose();
