@@ -209,7 +209,8 @@ namespace GradesPrototype.Views
                 }
 
                 // Exercise 1: Task 2d: Finish the XML document with the appropriate end elements
-                writer.WriteFullEndElement();
+                writer.WriteEndElement();
+                writer.WriteEndDocument();
 
                 // Exercise 1: Task 2e: Flush the XmlWriter and close it to ensure that all the data is written to the MemoryStream
             }
