@@ -156,8 +156,13 @@ namespace GradesPrototype.Views
                     // Preview the report data in a MessageBox
                     string formattedReportData = FormatXMLData(ms);
 
-                    // TODO: Exercise 3: Task 1a: Modify the message box and ask the user whether they wish to save the report
-                    MessageBox.Show(formattedReportData, "Preview Report", MessageBoxButton.OK, MessageBoxImage.Information);
+                    // Exercise 3: Task 1a: Modify the message box and ask the user whether they wish to save the report
+                    MessageBoxResult askToSaveResult = MessageBox.Show(formattedReportData, "Save Report?", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (askToSaveResult == MessageBoxResult.Yes)
+                    {
+                        FileStream fs = new FileStream(dialog.FileName, FileMode.Create, FileAccess.Write);
+                        ms.CopyTo(fs);
+                    }
 
                     // TODO: Exercise 3: Task 1b: If the user says yes, then save the data to the file that the user specified earlier                 
                 }
