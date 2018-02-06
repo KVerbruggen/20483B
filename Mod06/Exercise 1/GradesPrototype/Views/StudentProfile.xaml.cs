@@ -135,11 +135,24 @@ namespace GradesPrototype.Views
                 dialog.Filter = "XML documents|*.xml";
                 dialog.FileName = "Grades";
                 dialog.DefaultExt = ".xml";
-                // TODO: Exercise 1: Task 1a: Store the return value from the SaveFileDialog in a nullable Boolean variable.
+                // Exercise 1: Task 1a: Store the return value from the SaveFileDialog in a nullable Boolean variable.
+                bool? dialogResult = dialog.ShowDialog();
                 
-                // TODO: Exercise 1: Task 1b: Get the grades for the currently selected student.
+                // Exercise 1: Task 1b: Get the grades for the currently selected student.
+                if (dialogResult == true)
+                {
+                    // Linq query syntax:
+                    var grades = (from grade in DataSource.Grades
+                                  where grade.StudentID == SessionContext.CurrentStudent.StudentID
+                                  select grade).ToList();
+                    /*
+                      or Linq lambda syntax:
+                      var grades = DataSource.Grades.Where(grade => grade.StudentID == SessionContext.CurrentStudent.StudentID).ToList();
+                    */
 
-                // TODO: Exercise 1: Task 1c: Serialize the grades to a MemoryStream. 
+                    // Exercise 1: Task 1c: Serialize the grades to a MemoryStream.
+                    MemoryStream stream = FormatAsXMLStream(grades);
+                }
             }
             catch (Exception ex)
             {
@@ -153,23 +166,62 @@ namespace GradesPrototype.Views
         // Format the list of grades as an XML document and write it to a MemoryStream
         private MemoryStream FormatAsXMLStream(List<Grade> grades)
         {
-            // TODO: Exercise 1: Task 2a: Save the XML document to a MemoryStream by using an XmlWriter
+            // Exercise 1: Task 2a: Save the XML document to a MemoryStream by using an XmlWriter
+            MemoryStream stream = new MemoryStream();
+            using (XmlWriter writer = XmlWriter.Create(stream))
+            {
+                // Another solution:
+                /*
+                    XElement root = new XElement("Grades",
+                        new XAttribute("Student", String.Format("{0} {1}", SessionContext.CurrentStudent.FirstName, SessionContext.CurrentStudent.LastName))
+                        );
+                    foreach (Grade grade in grades)
+                    {
+                        root.Add(new XElement("Grade",
+                            new XAttribute("Date", grade.AssessmentDate),
+                            new XAttribute("Subject", grade.SubjectName),
+                            new XAttribute("Assessment", grade.Assessment),
+                            new XAttribute("Comments", grade.Comments)
+                            ));
+                    }
+                    root.WriteTo(writer);
+                */
 
-            // TODO: Exercise 1: Task 2b: Create the root node of the XML document.
-            // The document root has the format <Grades Student="Eric Gruber">
-            
-            // TODO: Exercise 1: Task 2c: Format the grades for the student and add them as child elements of the root node
-            // Grade elements have the format <Grade Date="01/01/2012" Subject="Math" Assessment="A-" Comments="Good" />
 
-            // TODO: Exercise 1: Task 2d: Finish the XML document with the appropriate end elements
+                // Exercise 1: Task 2b: Create the root node of the XML document.
+                // The document root has the format <Grades Student="Eric Gruber">
+                writer.WriteStartDocument();
+                writer.WriteStartElement("Grades");
+                writer.WriteAttributeString("Student", String.Format("{0} {1}", SessionContext.CurrentStudent.FirstName, SessionContext.CurrentStudent.LastName));
 
-            // TODO: Exercise 1: Task 2e: Flush the XmlWriter and close it to ensure that all the data is written to the MemoryStream
+
+
+                // Exercise 1: Task 2c: Format the grades for the student and add them as child elements of the root node
+                // Grade elements have the format <Grade Date="01/01/2012" Subject="Math" Assessment="A-" Comments="Good" />
+                foreach (Grade grade in grades)
+                {
+                    writer.WriteStartElement("Grade");
+                    writer.WriteAttributeString("Date", grade.AssessmentDate);
+                    writer.WriteAttributeString("Subject", grade.SubjectName);
+                    writer.WriteAttributeString("Assessment", grade.Assessment);
+                    writer.WriteAttributeString("Comments", grade.Comments);
+                    writer.WriteEndElement();
+                }
+
+                // Exercise 1: Task 2d: Finish the XML document with the appropriate end elements
+                writer.WriteFullEndElement();
+
+                // Exercise 1: Task 2e: Flush the XmlWriter and close it to ensure that all the data is written to the MemoryStream
+            }
 
             // The MemoryStream now contains the formatted data
 
-            // TODO: Exercise 1: Task 2f: Reset the MemoryStream so it can be read from the start and then return it
+            // Exercise 1: Task 2f: Reset the MemoryStream so it can be read from the start and then return it
+            stream.Seek(0, SeekOrigin.Begin);
 
-            throw new NotImplementedException();
+            // string s = new StreamReader(stream).ReadToEnd();
+
+            return stream;  
         }
         #endregion
 
