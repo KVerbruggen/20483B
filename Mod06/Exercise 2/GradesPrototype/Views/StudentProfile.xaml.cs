@@ -153,9 +153,11 @@ namespace GradesPrototype.Views
                     // Serialize the grades to a MemoryStream. 
                     MemoryStream ms = FormatAsXMLStream(grades);
 
-                    // TODO: Exercise 2: Task 1a: Generate a string representation of the report data
+                    // Exercise 2: Task 1a: Generate a string representation of the report data
+                    string reportData = FormatXMLData(ms);
 
-                    // TODO: Exercise 2: Task 1b: Preview the string version of the report data in a MessageBox
+                    // Exercise 2: Task 1b: Preview the string version of the report data in a MessageBox
+                    MessageBox.Show(reportData, "Preview Report", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 }
             }
@@ -209,15 +211,44 @@ namespace GradesPrototype.Views
         // Format the XML data in the stream as a neatly constructed string
         private string FormatXMLData(Stream stream)
         {
-            // TODO: Exercise 2: Task 2a: Use a StringBuilder to construct the string
+            // Exercise 2: Task 2a: Use a StringBuilder to construct the string
+            StringBuilder sb = new StringBuilder();
 
-            // TODO: Exercise 2: Task 2b: Use an XmlTextReader to read the XML data from the stream
+            // Exercise 2: Task 2b: Use an XmlTextReader to read the XML data from the stream
+            XmlReader reader = XmlReader.Create(stream);
 
-            // TODO: Exercise 2: Task 2c: Read and process the XML data a node at a time
+            // Exercise 2: Task 2c: Read and process the XML data a node at a time
+            while (reader.Read())
+            {
+                switch (reader.NodeType)
+                {
+                    case XmlNodeType.XmlDeclaration:
+                        sb.Append("Grades report for ");
+                        break;
+                    case XmlNodeType.Element:
+                        if (reader.LocalName.Equals("Grades"))
+                        {
+                            sb.Append(reader.GetAttribute("Student"));
+                            sb.AppendLine();
+                        }
+                        else
+                        {
+                            sb.AppendLine();
+                            for(int i = 0; i < reader.AttributeCount; i++)
+                            {
+                                reader.MoveToNextAttribute();
+                                sb.AppendLine(String.Format("{0}: {1}", reader.LocalName, reader.Value));
+                            }
+                        }
+                        break;
+                    case XmlNodeType.EndElement:
+                        break;
+                }
+            }
 
-            // TODO: Exercise 2: Task 2d: Reset the stream and return the string containing the formatted data
-
-            throw new NotImplementedException();
+            // Exercise 2: Task 2d: Reset the stream and return the string containing the formatted data
+            stream.Seek(0, SeekOrigin.Begin);
+            return sb.ToString();
         }
         #endregion
 
