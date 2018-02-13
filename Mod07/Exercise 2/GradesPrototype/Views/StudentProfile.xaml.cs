@@ -98,21 +98,30 @@ namespace GradesPrototype.Views
 
             try
             {
-                // TODO: Exercise 2: Task 3a: Use the GradeDialog to get the details of the new grade.
-                
+                // Exercise 2: Task 3a: Use the GradeDialog to get the details of the new grade.
+                GradeDialog gd = new GradeDialog();
 
-                // TODO: Exercise 2: Task 3b: Display the form and get the details of the new grade.
-                
-                    // TODO: Exercise 2: Task 3c: When the user closes the form, retrieve the details of the assessment grade from the form
+                // Exercise 2: Task 3b: Display the form and get the details of the new grade.
+                if (gd.ShowDialog().Value)
+                {
+                    // Exercise 2: Task 3c: When the user closes the form, retrieve the details of the assessment grade from the form
                     // and use them to create a new Grade object.
-                   
+                    Grade grade = new Grade()
+                    {
+                        AssessmentDate = gd.assessmentDate.SelectedDate.Value,
+                        SubjectId = (int)gd.subject.SelectedIndex,
+                        Assessment = gd.assessmentGrade.Text,
+                        Comments = gd.comments.Text,
+                        Student = SessionContext.CurrentStudent
+                    };
 
-                    // TODO: Exercise 2: Task 3d: Save the grade.
-                   
 
-                    // TODO: Exercise 2: Task 3e: Refresh the display so that the new grade appears
-                    
-                
+                    // Exercise 2: Task 3d: Save the grade.
+                    SessionContext.DBContext.Grades.Add(grade);
+
+                    // Exercise 2: Task 3e: Refresh the display so that the new grade appears
+                    this.Refresh();
+                }
             }
             catch (Exception ex)
             {
@@ -277,11 +286,17 @@ namespace GradesPrototype.Views
                 btnAddGrade.Visibility = Visibility.Visible;
             }
 
-            // TODO: Exercise 2: Task 1a: Find all the grades for the student.
-            
+            // Exercise 2: Task 1a: Find all the grades for the student.
+            // Query-syntax:
+            var gradesCurrentStudent = (from grade in SessionContext.CurrentStudent.Grades
+                                        where grade.Student == SessionContext.CurrentStudent
+                                        select grade).ToList();
+            // of code-first:
+            // var gradesCurrentStudent = SessionContext.CurrentStudent.Grades;
 
-            // TODO: Exercise 2: Task 1b: Display the grades in the studentGrades ItemsControl by using databinding
-            
+            // Exercise 2: Task 1b: Display the grades in the studentGrades ItemsControl by using databinding
+            studentGrades.ItemsSource = gradesCurrentStudent;
+
         }
     }
 
@@ -292,10 +307,16 @@ namespace GradesPrototype.Views
         public object Convert(object value, Type targetType, object parameter,
                               System.Globalization.CultureInfo culture)
         {
-            // TODO: Exercise 2: Task 2a: Convert the subject ID provided in the value parameter.
+            // Exercise 2: Task 2a: Convert the subject ID provided in the value parameter.
+            // Query-syntax:
+            var subjectName = (from subject in SessionContext.DBContext.Subjects
+                            where subject.Id == (int)value
+                          select subject.Name).FirstOrDefault();
+            // of code-first/lambda:
+            // var subjectName = SessionContext.DBContext.Subjects.Where(subject => subject.Id == (int)value).Select(subject => subject.Name).FirstOrDefault();
 
-            // TODO: Exercise 2: Task 2b: Return the subject name or the string "N/A".
-
+            // Exercise 2: Task 2b: Return the subject name or the string "N/A".
+            value = String.IsNullOrEmpty(subjectName) ? "N/A" : subjectName;
 
             return value;
         }
