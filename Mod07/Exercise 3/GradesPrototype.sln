@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.12
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grades.DataModel", "Grades.DataModel\Grades.DataModel.csproj", "{F5251913-F527-40C7-96A8-6C079E9B5897}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GradesPrototype", "GradesPrototype\GradesPrototype.csproj", "{8E5FC82F-F511-4FA3-9733-5AC0A4113CEE}"
@@ -22,5 +24,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {32BA9BE7-43D1-4A7B-8E6D-EE44FE986E50}
 	EndGlobalSection
 EndGlobal

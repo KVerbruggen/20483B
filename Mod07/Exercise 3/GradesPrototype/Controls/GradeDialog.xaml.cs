@@ -45,14 +45,15 @@ namespace GradesPrototype.Controls
             // Create a Grade object and use it to trap and report any data validation exceptions that are thrown
             try
             {
-                // TODO: Exercise 3: Task 2a: Create a Grade object.
+                // Exercise 3: Task 2a: Create a Grade object.
+                // Why create a separate object just for validation? It'd make more sense to make these functions static, save the grade info from here, or call these functions from StudentProfile.xaml.cs (where the grade info is actually saved).
+                Grade grade = new Grade();
 
+                // Exercise 3: Task 2b: Call the ValidateAssessmentDate method.
+                grade.ValidateAssessmentDate(assessmentDate.SelectedDate.Value);
 
-                // TODO: Exercise 3: Task 2b: Call the ValidateAssessmentDate method.
-
-
-                // TODO: Exercise 3: Task 2c: Call the ValidateAssessmentGrade method.
-
+                // Exercise 3: Task 2c: Call the ValidateAssessmentGrade method.
+                grade.ValidateAssessmentGrade(assessmentGrade.Text);
             }
             catch (Exception ex)
             {

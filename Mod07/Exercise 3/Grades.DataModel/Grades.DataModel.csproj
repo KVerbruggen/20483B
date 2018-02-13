@@ -48,6 +48,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes.cs" />
+    <Compile Include="customGrade.cs" />
+    <Compile Include="customTeacher.cs" />
     <Compile Include="Grade.cs">
       <DependentUpon>GradesModel.tt</DependentUpon>
     </Compile>
