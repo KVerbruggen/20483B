@@ -13,6 +13,7 @@ using System.Web;
 using System.Data.Services.Providers;
 using System.Data.Services.Client;
 using Grades.DataModel;
+using Microsoft.Data;
 
 namespace Grades.Web.Services
 {
@@ -21,7 +22,7 @@ namespace Grades.Web.Services
         // This method is called only once to initialize service-wide policies.
         public static void InitializeService(DataServiceConfiguration config)
         {
-            // TODO: set rules to indicate which entity sets and service operations are visible, updatable, etc.
+            // set rules to indicate which entity sets and service operations are visible, updatable, etc.
             // Examples:
             // config.SetEntitySetAccessRule("MyEntityset", EntitySetRights.AllRead);
             // config.SetServiceOperationAccessRule("MyServiceOperation", ServiceOperationRights.All);
@@ -31,7 +32,7 @@ namespace Grades.Web.Services
             config.SetEntitySetAccessRule("Students", EntitySetRights.All);
             config.SetEntitySetAccessRule("Subjects", EntitySetRights.All);
             config.SetEntitySetAccessRule("Users", EntitySetRights.All);
-            config.SetServiceOperationAccessRule("StudentInClass", ServiceOperationRights.AllRead);
+            config.SetServiceOperationAccessRule("StudentsInClass", ServiceOperationRights.AllRead);
 
             config.DataServiceBehavior.MaxProtocolVersion = DataServiceProtocolVersion.V3;
         }
