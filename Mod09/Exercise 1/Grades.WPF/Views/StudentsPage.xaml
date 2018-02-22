@@ -21,19 +21,19 @@
                 </ItemsControl.ItemsPanel>
                 <!-- Exercise 1: Task 2a: Define the DataTemplate for the "list" ItemsControl including the StudentPhoto user control -->
                 <!-- Exercise 1: Task 3a: Set the handler for the click event for the StudentPhoto control -->
+                <!-- Exercise 1: Task 4a: Add the "Remove" button to the DataTemplate -->
+                <!-- Exercise 1: Task 4d: Add event handlers to highlight the "Remove" button as the mouse enters and exits this control -->
+                <!-- Exercise 1: Task 4e: Raise the RemoveStudent_Click event if the user clicks the "Remove" button -->
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="8">
                             <local:StudentPhoto Height="150" Width="127.5" Cursor="Hand" MouseLeftButtonUp="Student_Click"/>
-                            <Grid VerticalAlignment="Top" HorizontalAlignment="Right" Background="00000000" Opacity="0.3" Width="20" Height="20" ToolTipService.ToolTip="Remove from class" Tag="{Binding}">
+                            <Grid VerticalAlignment="Top" HorizontalAlignment="Right" Background="00000000" Opacity="0.3" Width="20" Height="20" ToolTipService.ToolTip="Remove from class" Tag="{Binding}" MouseEnter="RemoveStudent_MouseEnter" MouseLeave="RemoveStudent_MouseLeave" MouseLeftButtonUp="RemoveStudent_Click">
                                 <Image Source="../Images/delete.png" Stretch="Uniform" />
                             </Grid>
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
-                <!-- TODO: Exercise 1: Task 4a: Add the "Remove" button to the DataTemplate -->
-                <!-- TODO: Exercise 1: Task 4d: Add event handlers to highlight the "Remove" button as the mouse enters and exits this control -->
-                <!-- TODO: Exercise 1: Task 4e: Raise the RemoveStudent_Click event if the user clicks the "Remove" button -->
             </ItemsControl>
         </ScrollViewer>
         <TextBlock Grid.Row="2" Margin="0,0,15,10" VerticalAlignment="Bottom" Height="34" Style="{StaticResource LabelRight}" Text="+ add student" TextWrapping="Wrap" FontSize="29.333" HorizontalAlignment="Right" Width="214.5" TextAlignment="Right" Cursor="Hand" MouseLeftButtonUp="AddStudent_Click"/>
