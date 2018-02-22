@@ -81,6 +81,9 @@
     <Compile Include="Controls\GrungeButton.xaml.cs">
       <DependentUpon>GrungeButton.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\StudentPhoto.xaml.cs">
+      <DependentUpon>StudentPhoto.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\SubjectList.xaml.cs">
       <DependentUpon>SubjectList.xaml</DependentUpon>
     </Compile>
@@ -112,6 +115,10 @@
     <Page Include="Controls\GrungeButton.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\StudentPhoto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\SubjectList.xaml">
       <Generator>MSBuild:Compile</Generator>
