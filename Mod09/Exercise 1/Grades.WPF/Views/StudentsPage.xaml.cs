@@ -63,8 +63,8 @@ namespace Grades.WPF
 
         #region Events
 
-        // TODO: Exercise 1: Task 4b: Review the following event handler.
-        //Animate the photo as the user moves the mouse over the "delete" image
+        // Exercise 1: Task 4b: Review the following event handler.
+        // Animate the photo as the user moves the mouse over the "delete" image
         private void RemoveStudent_MouseEnter(object sender, MouseEventArgs e)
         {
             Grid grid = (Grid)sender;
@@ -73,7 +73,7 @@ namespace Grades.WPF
             photo.Opacity = 0.6;
         }
 
-        // TODO: Exercise 1: Task 4c: Review the following event handler.
+        // Exercise 1: Task 4c: Review the following event handler.
         // Animate the photo as the user moves the mouse away from the "delete" image
         private void RemoveStudent_MouseLeave(object sender, MouseEventArgs e)
         {
@@ -83,7 +83,7 @@ namespace Grades.WPF
             photo.Opacity = 1.0;
         }
 
-        // TODO: Exercise 1: Task 3b: Review the following event handler.
+        // Exercise 1: Task 3b: Review the following event handler.
         // If the user clicks a photo, raise the StudentSelected event to display the details of the student
         private void Student_Click(object sender, MouseButtonEventArgs e)
         {
@@ -109,7 +109,7 @@ namespace Grades.WPF
             Refresh();
         }
 
-        // TODO: Exercise 1: Task 4d: Review the following event handler.
+        // Exercise 1: Task 4d: Review the following event handler.
         // Remove the student from the class if the user clicks the remove icon
         private void RemoveStudent_Click(object sender, MouseButtonEventArgs e)
         {
