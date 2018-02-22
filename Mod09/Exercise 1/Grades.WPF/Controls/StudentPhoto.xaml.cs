@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Media.Animation;
 
-namespace Grades.WPF.Controls
+namespace Grades.WPF
 {
     /// <summary>
     /// Interaction logic for StudentPhoto.xaml
