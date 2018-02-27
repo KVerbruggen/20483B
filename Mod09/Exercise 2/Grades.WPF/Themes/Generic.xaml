@@ -337,8 +337,11 @@
     
     <!-- Text Controls -->
     <Style x:Key="LabelStyle" TargetType="{x:Type TextBlock}">
-        <!-- TODO: Exercise 2: Task 2a: Define the label styling used throughout the application -->
-
+        <!-- Exercise 2: Task 2a: Define the label styling used throughout the application -->
+        <Setter Property="TextWrapping" Value="NoWrap" />
+        <Setter Property="FontFamily" Value="Buxton Sketch" />
+        <Setter Property="FontSize" Value="19" />
+        <Setter Property="Foreground" Value="#FF303030" />
     </Style>
     <Style x:Key="LabelRight" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource LabelStyle}">
         <Setter Property="TextAlignment" Value="Right" />
@@ -355,8 +358,12 @@
     </Style>
 
     <Style x:Key="TextBoxStyle" TargetType="{x:Type TextBox}">
-        <!-- TODO: Exercise 2: Task 2b: Define the text styling used throughout the application -->
-
+        <!-- Exercise 2: Task 2b: Define the text styling used throughout the application -->
+        <Setter Property="TextWrapping" Value="NoWrap" />
+        <Setter Property="FontFamily" Value="Buxton Sketch" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="TextAlignment" Value="Left" />
+        <Setter Property="Foreground" Value="#FF303030" />
         <Style.Triggers>
             <Trigger Property="Validation.HasError" Value="true">
                 <Setter Property="ToolTip"
