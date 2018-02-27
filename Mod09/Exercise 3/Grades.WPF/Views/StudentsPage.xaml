@@ -22,8 +22,8 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="8">
-                            <!-- TODO: Exercise 3: Task 2c: Specify the handlers for the MouseEnter and MouseLeave events -->
-                            <local:StudentPhoto Height="150" Width="127.5" Cursor="Hand" MouseLeftButtonUp="Student_Click" />
+                            <!-- Exercise 3: Task 2c: Specify the handlers for the MouseEnter and MouseLeave events -->
+                            <local:StudentPhoto Height="150" Width="127.5" Cursor="Hand" MouseLeftButtonUp="Student_Click" MouseEnter="Student_MouseEnter" MouseLeave="Student_MouseLeave" />
                             <Grid VerticalAlignment="Top" HorizontalAlignment="Right" Background="#00000000" Opacity="0.3" Width="20" Height="20" 
                                   ToolTipService.ToolTip="Remove from class" Tag="{Binding}" 
                                   MouseEnter="RemoveStudent_MouseEnter" MouseLeave="RemoveStudent_MouseLeave" MouseLeftButtonUp="RemoveStudent_Click">

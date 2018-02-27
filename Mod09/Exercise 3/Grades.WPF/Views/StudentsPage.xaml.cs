@@ -58,7 +58,18 @@ namespace Grades.WPF
         #endregion
 
         #region Events
-        // TODO: Exercise 3: Task 2b: Forward the MouseEnter and MouseLeave events to the photograph control
+        // Exercise 3: Task 2b: Forward the MouseEnter and MouseLeave events to the photograph control
+        private void Student_MouseEnter(object sender, MouseEventArgs e)
+        {
+            // Call the OnMouseEnter event handler on the specific photograph currently under the mouse pointer
+            ((StudentPhoto)sender).onMouseEnter();
+        }
+
+        private void Student_MouseLeave(object sender, MouseEventArgs e)
+        {
+            // Call the OnMouseEnter event handler on the specific photograph currently under the mouse pointer
+            ((StudentPhoto)sender).onMouseLeave();
+        }
 
         private void RemoveStudent_MouseEnter(object sender, MouseEventArgs e)
         {
